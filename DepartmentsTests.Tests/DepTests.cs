@@ -112,7 +112,7 @@ namespace DepartmentsTests.Tests
         public void FoodPerDayAllTest() //Общее дневное потребление еды для всех животных в чемодане    
         {
             double FoodPerDayAll = rootDep.FoodPerDayAll(.0);
-            double ExpectedFoodPerDayAll = 70.0;
+            double ExpectedFoodPerDayAll = 80.0;
             Assert.AreEqual(ExpectedFoodPerDayAll, FoodPerDayAll);
         }
 
@@ -120,7 +120,7 @@ namespace DepartmentsTests.Tests
         public void TotalAnimalTest() // Общее количество всех животных в отделе чемодана
         {
             double TotalAnimal = rootDep.TotalAnimal(.0);
-            double ExpectedTotalAnimal = 6.0;
+            double ExpectedTotalAnimal = 7.0;
             Assert.AreEqual(ExpectedTotalAnimal, TotalAnimal);
         }
 
@@ -129,8 +129,27 @@ namespace DepartmentsTests.Tests
         {
             string ExpectString = "Animal " + Runespoor1.ToString().Substring(26) + " added";
             string ResultString = AviaryDepSecondLeaf2.AddPet(Runespoor1);
-            Assert.AreEqual(ExpectString, ResultString);
+            Assert.AreEqual(ExpectString, ResultString);            
         }
+
+         [TestMethod]
+        public void AddPetTest_AnimalComp() // проверка на совместимость животных при добавлении несовместимого животного в данный отдел чемодана
+        {
+            string ExpectString = "Sorry " + Runespoor1.ToString().Substring(26) + " wrong animal group";
+            string ResultString = AviaryDepSecondLeaf.AddPet(Runespoor1); // добавляем змею к окками (не совместимы)
+            Assert.AreEqual(ExpectString, ResultString);
+            //Assert.AreEqual(typeof(string), " ".GetType());
+        }
+
+         [TestMethod]
+         public void DayTest() // public override void Day() // изменяем состояние на - день (состояние)
+         {
+             State_DayNight DayStateL = new State_Night(); // создаем - ночное время суток
+             String ExpectString = DayStateL.GetType().ToString();
+             rootDep.Night();
+
+             Assert.AreEqual(ExpectString, rootDep.DayState.GetType().ToString());             
+         }
 
     }
 }
